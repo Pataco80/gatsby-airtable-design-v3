@@ -5,10 +5,7 @@ import base from './Airtable'
 import { FaVoteYea } from 'react-icons/fa'
 
 const Survey = () => {
- 
-  return (
-   <h2>survey component</h2>
-  )
+  return <Wrapper>survey component</Wrapper>
 }
 
 const Wrapper = styled.section`

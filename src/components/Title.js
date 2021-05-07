@@ -2,9 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Title = () => {
-  return (
-   <h2>title component</h2>
-  )
+  return <Wrapper>title component</Wrapper>
 }
 const Wrapper = styled.div`
   text-align: center;

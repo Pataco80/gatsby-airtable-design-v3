@@ -4,12 +4,12 @@ import styled from 'styled-components'
 import { Layout, Projects, Algolia } from '../components'
 
 const ProjectsPage = () => {
-  
   return (
-    <h2>projects page</h2>
+    <Layout>
+      <Wrapper>projects page</Wrapper>
+    </Layout>
   )
 }
-
 
 const Wrapper = styled.main`
   min-height: 100vh;
