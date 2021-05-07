@@ -3,7 +3,24 @@ import styled from 'styled-components'
 import { Link } from 'gatsby'
 import { StaticImage } from 'gatsby-plugin-image'
 const Hero = () => {
-  return <Wrapper>hero component</Wrapper>
+  return (
+    <Wrapper>
+      <StaticImage
+        src="../images/mainBcg.png"
+        layout="fullWidth"
+        placeholder="blurred"
+        alt="Image"
+        className="img"
+      />
+      <div className="info">
+        <article>
+          <h3>If You Can Dream It, We Can Create It</h3>
+          <h1>LET YOUR HOME BE INIQUE AND STYLISH</h1>
+          <Link to="/projects/">Projects</Link>
+        </article>
+      </div>
+    </Wrapper>
+  )
 }
 
 const Wrapper = styled.section`
