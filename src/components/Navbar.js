@@ -6,7 +6,31 @@ import { Link } from 'gatsby'
 import NavLink from './NavLink'
 import { GatsbyContext } from '../context/context'
 const Navbar = () => {
-  return <Wrapper>navbar component</Wrapper>
+  return (
+    <Wrapper>
+      <div className="nav-center">
+        <div className="nav-header">
+          <Link to="/">
+            <img src={logo} alt="logo" />
+          </Link>
+          <button className="toggle-btn">
+            <GoThreeBars />
+          </button>
+        </div>
+        <ul className="nav-links">
+          <li>
+            <button>Products</button>
+          </li>
+          <li>
+            <button>Developpers</button>
+          </li>
+          <li>
+            <button>Compagny</button>
+          </li>
+        </ul>
+      </div>
+    </Wrapper>
+  )
 }
 
 const Wrapper = styled.nav`
