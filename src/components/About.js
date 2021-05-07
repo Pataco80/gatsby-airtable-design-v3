@@ -3,7 +3,22 @@ import styled from 'styled-components'
 import Title from './Title'
 import services from '../constants/services'
 const About = () => {
-  return <Wrapper>about component</Wrapper>
+  return (
+    <Wrapper className="section">
+      <Title title="About Us" />
+      <div className="section-center">
+        {services.map(({ id, icon, label, text }) => {
+          return (
+            <article key={id}>
+              <span className="icon">{icon}</span>
+              <h4>{label}</h4>
+              <p>{text}</p>
+            </article>
+          )
+        })}
+      </div>
+    </Wrapper>
+  )
 }
 const Wrapper = styled.section`
   .section-center {
@@ -12,10 +27,14 @@ const Wrapper = styled.section`
     gap: 2rem;
     /* safari workaround */
     grid-gap: 2rem;
+    article {
+      display: grid;
+      justify-items: center;
+    }
     .icon {
       font-size: 4rem;
       color: var(--clr-primary-5);
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
     }
     h4 {
       text-transform: uppercase;

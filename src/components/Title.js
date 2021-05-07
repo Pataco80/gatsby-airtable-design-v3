@@ -1,8 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Title = () => {
-  return <Wrapper>title component</Wrapper>
+const Title = ({ title }) => {
+  return (
+    <Wrapper>
+      <h2>
+        <span>/</span> {title}
+      </h2>
+    </Wrapper>
+  )
 }
 const Wrapper = styled.div`
   text-align: center;
