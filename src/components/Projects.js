@@ -1,12 +1,41 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'gatsby'
 import Title from './Title'
 import styled from 'styled-components'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import SearchButtons from './SearchButtons'
 
-const Projects = () => {
-  return <Wrapper>projects</Wrapper>
+const Projects = ({ projects, title, page }) => {
+  return (
+    <Wrapper className="section">
+      <Title title={title || 'Projects'} />
+      <div className="section-center">
+        {projects.map(project => {
+          const { name, category, image } = project.data
+          return (
+            <article>
+              <div className="container">
+                <GatsbyImage
+                  image={getImage(image.localFiles[0])}
+                  alt={name}
+                  className="img"
+                />
+                <div className="info">
+                  <p>{category}</p>
+                  <h3>{category}</h3>
+                </div>
+              </div>
+            </article>
+          )
+        })}
+      </div>
+      {page && (
+        <Link to="/projects/" className="btn">
+          All Projects
+        </Link>
+      )}
+    </Wrapper>
+  )
 }
 
 const Wrapper = styled.section`

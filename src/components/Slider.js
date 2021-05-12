@@ -7,7 +7,7 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import { FiChevronRight, FiChevronLeft } from 'react-icons/fi'
 
 const Slider = ({ customers = [] }) => {
-  const [index, setIndex] = React.useState(0)
+  const [index, setIndex] = useState(0)
 
   const nextSlide = () => {
     setIndex(oldIndex => {
@@ -103,7 +103,7 @@ const Wrapper = styled.div`
     .img {
       border-radius: 50%;
       margin-bottom: 1rem;
-       display: inline-block !important;
+      display: inline-block !important;
     }
     h4 {
       text-transform: uppercase;
