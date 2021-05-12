@@ -13,15 +13,14 @@ import {
 const HomePage = ({ data }) => {
   const {
     projectsList: { nodes: projects },
-    customersList: { nodes: customers },
+    customersList: { nodes: custoer },
   } = data
-
   return (
     <Layout>
       <Hero />
       <About />
       <Projects projects={projects} title="Latest Projects" page />
-      <Slider />
+      <Slider customers={custoer} />
     </Layout>
   )
 }
@@ -54,7 +53,7 @@ export const query = graphql`
         }
       }
     }
-    customers: allAirtable(filter: { table: { eq: "customers" } }) {
+    customersList: allAirtable(filter: { table: { eq: "customers" } }) {
       nodes {
         data {
           name
@@ -65,27 +64,16 @@ export const query = graphql`
               childImageSharp {
                 gatsbyImageData(
                   formats: WEBP
-                  layout: CONSTRAINED
+                  layout: FIXED
                   placeholder: BLURRED
+                  width: 150
+                  height: 150
                 )
               }
             }
           }
         }
-      }
-    }
-    fragment
-    ImageConfig
-    on
-    image {
-      localFiles {
-        childImageSharp {
-          gatsbyImageData(
-            formats: WEBP
-            layout: CONSTRAINED
-            placeholder: BLURRED
-          )
-        }
+        id
       }
     }
   }
