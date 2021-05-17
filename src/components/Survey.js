@@ -4,8 +4,87 @@ import styled from 'styled-components'
 import base from './Airtable'
 import { FaVoteYea } from 'react-icons/fa'
 
-const Survey = () => {
-  return <Wrapper>survey component</Wrapper>
+const Survey = ({ title }) => {
+  // cràer les états lors de la prise de données
+  // Données Airtable sont transmise par son tableau qui sera vide avant la réception des données
+  const [items, setItems] = useState([])
+  // Prise en compte de l'état des données au chargements de la page. Lors du chargement, c'est onLoad alors départ a "true"
+  const [loading, setLoading] = useState(true)
+
+  const getSurvey = async () => {
+    const records = await base('survey')
+      .select({})
+      .firstPage()
+      .catch(err => console.log(err))
+
+    const newItems = records.map(record => {
+      const { id, fields } = record
+      return { id, fields }
+    })
+
+    setItems(newItems)
+    setLoading(false)
+  }
+
+  const updateSurvey = async id => {
+    setLoading(true)
+    const tempItem = [...items].map(item => {
+      if (item.id === id) {
+        let { id, fields } = item
+        fields = { ...fields, fields: fields.votes + 1 }
+        return { id, fields }
+      } else {
+        return item
+      }
+    })
+    const records = await base('survey')
+      .update(tempItem)
+      .catch(err => console.log(err))
+
+    const newItems = records.map(record => {
+      const { id, fields } = record
+      return { id, fields }
+    })
+
+    setItems(newItems)
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    getSurvey()
+  }, [])
+
+  return (
+    <Wrapper className="section">
+      <div className="container">
+        <Title title={title || 'Survey'} />
+        <h3>most important room in the house?</h3>
+        {loading ? (
+          <h3>Loading...</h3>
+        ) : (
+          <ul>
+            {items.map(item => {
+              const { id, fields } = item
+              return (
+                <li key={id}>
+                  <div className="key">
+                    {fields.name.toUpperCase().substring(0, 2)}
+                  </div>
+                  <div>
+                    <h4>{fields.name}</h4>
+                    <p>{fields.votes}</p>
+                  </div>
+                  <button onClick={() => updateSurvey(id)}>
+                    <FaVoteYea />
+                  </button>
+                </li>
+              )
+            })}
+          </ul>
+        )}
+      </div>
+    </Wrapper>
+  )
 }
 
 const Wrapper = styled.section`
