@@ -1,9 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
-const SearchButtons = () => {
-  return <Wrapper>search buttons</Wrapper>
+const SearchButtons = ({ projects, setProjects, setBackAllProjects }) => {
+  const [index, setIndex] = useState(0)
+  const categoryList = [
+    'All',
+    ...new Set(
+      projects.map(project => {
+        const category = project.data.categories
+        return category
+      })
+    ),
+  ]
+  console.log(categoryList)
+
+  const selectCategory = (category, categoryIndex) => {
+    setIndex(categoryIndex)
+  }
+  return (
+    <Wrapper>
+      {categoryList.map((category, categoryIndex) => {
+        return (
+          <button
+            Key={categoryIndex}
+            className={index === categoryIndex ? 'active' : null}
+            onClick={() => selectCategory(category, categoryIndex)}
+          >
+            {category}
+          </button>
+        )
+      })}
+    </Wrapper>
+  )
 }
+
 const Wrapper = styled.section`
   display: flex;
   margin-bottom: 0;

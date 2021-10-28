@@ -19,7 +19,8 @@ const HomePage = ({ data }) => {
     <Layout>
       <Hero />
       <About />
-      <Projects projects={projects} title="Latest Projects" page />
+      <Projects projects={projects} title="Latest Projects" />
+      <Survey />
       <Slider customers={custoer} />
     </Layout>
   )
@@ -37,7 +38,7 @@ export const query = graphql`
       nodes {
         data {
           name
-          category
+          categories
           date(formatString: "DD, MMM YYYY", locale: "CH")
           image {
             localFiles {

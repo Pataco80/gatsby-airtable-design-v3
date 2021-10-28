@@ -11,7 +11,7 @@ const Survey = ({ title }) => {
   // Prise en compte de l'état des données au chargements de la page. Lors du chargement, c'est onLoad alors départ a "true"
   const [loading, setLoading] = useState(true)
 
-  const getSurvey = async () => {
+  const getDataSurvey = async () => {
     const records = await base('survey')
       .select({})
       .firstPage()
@@ -21,67 +21,62 @@ const Survey = ({ title }) => {
       const { id, fields } = record
       return { id, fields }
     })
-
-    setItems(newItems)
     setLoading(false)
+    setItems(newItems)
   }
 
   const updateSurvey = async id => {
     setLoading(true)
-    const tempItem = [...items].map(item => {
+    const tempItems = [...items].map(item => {
       if (item.id === id) {
         let { id, fields } = item
-        fields = { ...fields, fields: fields.votes + 1 }
+        fields = { ...fields, votes: fields.votes + 1 }
         return { id, fields }
       } else {
         return item
       }
     })
     const records = await base('survey')
-      .update(tempItem)
+      .update(tempItems)
       .catch(err => console.log(err))
-
     const newItems = records.map(record => {
       const { id, fields } = record
       return { id, fields }
     })
-
-    setItems(newItems)
     setLoading(false)
+    setItems(newItems)
   }
 
   useEffect(() => {
-    getSurvey()
+    getDataSurvey()
   }, [])
-
   return (
     <Wrapper className="section">
       <div className="container">
         <Title title={title || 'Survey'} />
         <h3>most important room in the house?</h3>
-        {loading ? (
-          <h3>Loading...</h3>
-        ) : (
-          <ul>
-            {items.map(item => {
-              const { id, fields } = item
-              return (
-                <li key={id}>
-                  <div className="key">
-                    {fields.name.toUpperCase().substring(0, 2)}
-                  </div>
-                  <div>
-                    <h4>{fields.name}</h4>
-                    <p>{fields.votes}</p>
-                  </div>
-                  <button onClick={() => updateSurvey(id)}>
-                    <FaVoteYea />
-                  </button>
-                </li>
-              )
-            })}
-          </ul>
-        )}
+        <ul>
+          {items.map(item => {
+            const { id, fields } = item
+            return (
+              <li key={id}>
+                <div className="key">
+                  {fields.name.toUpperCase().substring(0, 2)}
+                </div>
+                <div>
+                  <h4>{fields.name}</h4>
+                  <p>{fields.votes}</p>
+                </div>
+                <button
+                  disabled={loading ? true : false}
+                  onClick={() => updateSurvey(id)}
+                >
+                  <FaVoteYea />
+                </button>
+              </li>
+            )
+          })}
+        </ul>
       </div>
     </Wrapper>
   )

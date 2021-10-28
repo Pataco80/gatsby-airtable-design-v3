@@ -9,11 +9,11 @@ const ProjectsPage = ({ data }) => {
   } = data
 
   return (
-    <Layout>
-      <Wrapper>
-        <Projects projects={projects} title="All Projects" />
-      </Wrapper>
-    </Layout>
+    <Wrapper>
+      <Layout>
+        <Projects projects={projects} title="All Projects" page />
+      </Layout>
+    </Wrapper>
   )
 }
 
@@ -36,7 +36,7 @@ export const query = graphql`
       nodes {
         data {
           name
-          category
+          categories
           date(formatString: "DD, MMM YYYY", locale: "CH")
           image {
             localFiles {
