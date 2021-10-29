@@ -1,5 +1,5 @@
 import Airtable from 'airtable'
 
-export default new Airtable({ apiKey: process.env.AIRTABLE_API_USER_KEY }).base(
-  process.env.AIRTABLE_DATABASE_ID
+export default new Airtable({ apiKey: process.env.GATSBY_AIRTABLE_API }).base(
+  process.env.GATSBY_AIRTABLE_BASE_ID
 )
